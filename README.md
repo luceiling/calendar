@@ -1,50 +1,40 @@
-# FullCalendar
 
-Full-sized drag & drop calendar in JavaScript
+# FullCalendar Core
 
-- [Project Website](https://fullcalendar.io/)
-- [Documentation](https://fullcalendar.io/docs)
-- [Changelog](CHANGELOG.md)
-- [Support](https://fullcalendar.io/support)
-- [License](LICENSE.md)
-- [Roadmap](https://fullcalendar.io/roadmap)
-
-Connectors:
-
-- [React](https://github.com/fullcalendar/fullcalendar-react)
-- [Angular](https://github.com/fullcalendar/fullcalendar-angular)
-- [Vue 3](https://github.com/fullcalendar/fullcalendar-vue) |
-  [2](https://github.com/fullcalendar/fullcalendar-vue2)
-
-## Bundle
-
-The [FullCalendar Standard Bundle](bundle) is easier to install than individual plugins, though filesize will be larger. It works well with a CDN.
+FullCalendar core package for rendering a calendar
 
 ## Installation
 
-Install the FullCalendar core package and any plugins you plan to use:
+This package is never used alone. Use it with least one plugin (like [daygrid](https://fullcalendar.io/docs/month-view)):
 
 ```sh
-npm install @fullcalendar/core @fullcalendar/interaction @fullcalendar/daygrid
+npm install @fullcalendar/core @fullcalendar/daygrid
 ```
 
 ## Usage
 
-Instantiate a Calendar with plugins and options:
+First, ensure there's a DOM element for your calendar to render into:
+
+```html
+<body>
+  <div id='calendar'></div>
+</body>
+```
+
+Then, instantiate a Calendar object with [options](https://fullcalendar.io/docs#toc) and call its `render` method:
 
 ```js
 import { Calendar } from '@fullcalendar/core'
-import interactionPlugin from '@fullcalendar/interaction'
 import dayGridPlugin from '@fullcalendar/daygrid'
 
 const calendarEl = document.getElementById('calendar')
 const calendar = new Calendar(calendarEl, {
   plugins: [
-    interactionPlugin,
     dayGridPlugin
+    // any other plugins
   ],
-  initialView: 'timeGridWeek',
-  editable: true,
+  initialView: 'dayGridMonth',
+  weekends: false,
   events: [
     { title: 'Meeting', start: new Date() }
   ]
@@ -52,22 +42,3 @@ const calendar = new Calendar(calendarEl, {
 
 calendar.render()
 ```
-
-## Development
-
-You must install this repo with [PNPM](https://pnpm.io/):
-
-```
-pnpm install
-```
-
-Available scripts (via `pnpm run <script>`):
-
-- `build` - build production-ready dist files
-- `dev` - build & watch development dist files
-- `test` - test headlessly
-- `test:dev` - test interactively
-- `lint`
-- `clean`
-
-[Info about contributing code &raquo;](CONTRIBUTING.md)
